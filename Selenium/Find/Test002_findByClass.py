@@ -15,7 +15,6 @@ print(elements)
 count_all = 0
 count_value = 0
 
-
 for ele in elements:
     count_all += 1
     if ele.text:
