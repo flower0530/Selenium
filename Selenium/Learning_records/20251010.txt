@@ -1,0 +1,30 @@
+1.选择多项元素
+# 用逗号隔开，但是优先级较低
+.animal,.plant # 表示选择类为animal和plant的元素
+#id1 > .class1,p # 表示选择id为id1元素中类为class1的元素 和 所有元素中含有p属性的元素
+#id1 > .class1,#id > p # 表示选择id为id1元素中类为class1的元素 和 其中含有p属性的元素
+
+-------------------------------------------------------------------------------
+
+2.按次序选择元素
+（1）nth-child()和nth-last-child()
+# 选中的元素为同级节点中正数第二个且是span标签
+ele = wd.find_element(By.CSS_SELECTOR,'span:nth-child(2)')
+# 选中的元素为同级节点中倒数第二个且是span标签
+ele = wd.find_element(By.CSS_SELECTOR,'span:nth-last-child(2)')
+
+（2）nth-of-type()和nth-last-of-type()
+# 选中的元素为同级节点中正数第二个span标签的元素
+ele = wd.find_element(By.CSS_SELECTOR,'span:nth-of-type(2)')
+
+（3）奇数/偶数节点选择
+span:nth-of-type(even) # 先排序再一次遍历偶数，看是否是span标签
+span:nth-of-type(odd) # 奇数
+span:nth-of-type(even) # 先把span标签的找出来，再找第偶数个
+span:nth-of-type(odd) # 奇数
+
+-------------------------------------------------------------------------------
+
+3.兄弟节点选择
+#t1 h3+span # 表示h3标签后同级第一个span标签元素
+#t2 h3~span # 表示h3标签后同级所有span标签元素

@@ -1,0 +1,86 @@
+1.导入类
+# 导入驱动类
+from selenium import webdriver
+# 导入By类，用于指定查找元素方式
+from selenium.webdriver.common.by import By
+---------------------------------------------------------------------------
+2.启动浏览器并初始化驱动
+# 实例化控制浏览器的对象
+wd = webdriver.Edge()
+# 跳转URL地址
+wd.get("http://www.baidu.com")
+---------------------------------------------------------------------------
+3.定位元素（基础方法）
+# 根据id
+elements = wd.find_elements(By.ID,"id")
+# 根据类
+elements = wd.find_elements(By.CLASS_NAME,"class_name")
+# 根据标签
+elements = wd.find_elements(By.TAG_NAME,"tag_name")
+---------------------------------------------------------------------------
+4.定位元素（CSS选择器）
+
+# 基础（根据id,class,tag）
+ele = wd.find_element(By.CSS_SELECTOR,"#id")
+ele = wd.find_element(By.CSS_SELECTOR,".class") # 只要类中包含class即符合
+ele = wd.find_element(By.CSS_SELECTOR,"tag")
+
+# 限定上级范围
+(1)子元素：A>B;
+(2)后代元素：A B;
+ele = wd.find_element(By.CSS_SELECTOR,'#id1 .class1 > tag')
+# 复合写法（选取类名有data的span元素）
+ele = wd.find_element(BY.CSS_SELECTOR,'span.data#id1')
+ele = wd.find_element(BY.CSS_SELECTOR,'#id0 div.item > span.data#id1')
+
+# 元素属性来选择元素
+# [属性名],表示选择含有该属性名的元素，不论属性值为多少
+# [属性名="值"],表示选择属性名等于特定值的元素
+# [属性名*="值"],包含
+# [属性名^="值"],开头
+# [属性名$="值"],结尾
+# [class="class值1 class值2 class值3"],之前类只要写一个，但是该写法要写完整，因为是把class当做普通属性来执行的，后面的值是一个整体
+div[class=mics][ctype=gun] # 当后面的值没有特殊符号时，可以不加引号
+
+---------------------------------------------------------------------------
+5.控制元素
+
+# 输入
+ele.send_keys("data")
+
+# 清除
+ele.clear()
+
+# 点击(点击元素的正中心 )
+ele.click()
+
+# 获取元素属性（text、get_attribute())
+ele.text # 等价“用户肉眼能看到的那行字”，自动过滤隐藏、脚本标签
+ele.get_attribute('innerText') # 老IE习惯写法，现代浏览器与.text几乎一致
+ele.get_attribute('textContent') # 包含隐藏元素、 display:none里的字，换行符也保留
+ele.get_attribute('value') # 输入框、单选、下拉等才用得上；普通标签拿不到
+ele.get_attribute('class') # 返回原始值，如"btn active"，需自己再split（拆分）
+ele.get_attribute('outHTML') # 包含当前标签本身：<div class="a">hello</div>
+ele.get_attribute('innerHTML') # 不含当前标签，只拿hello部分
+
+---------------------------------------------------------------------------
+6.其他
+
+# 等待
+time.sleep(10)
+
+# 隐式等待
+wd.implicitly_wait(5)
+
+# 刷新
+wd.refresh()
+
+# 关闭浏览器并结束进程
+wd.quit()
+
+# 对于查找到的元素可以再次进行查找元素来获取元素内符合条件的子元素
+ele1 = wd.find_element(......)
+ele2 = ele1.find_element(......)
+
+# 验证CSS能否选中元素，F12，Ctrl+F,将表达式复制进去，区别选中的是String，Selector,Xpath
+
