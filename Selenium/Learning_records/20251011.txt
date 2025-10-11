@@ -1,0 +1,23 @@
+1.frame切换
+# html嵌套，若要找到嵌套的html中的元素，需要切换操作范围
+wd.switch_to.frame('innerFrame')  # 括号里面不是css表达式
+wd.switch_to.default_content()  # 切换回默认的html
+
+2.窗口切换
+wd.switch_to.window(handle)
+wd.switch_to.window(handle)
+
+window1 = wd.window_handle[0]
+window2 = None
+for h in wd.window_handles:
+    if  h != window1：
+        window2 = h
+wd.switch_window(window2)
+
+
+for handle in wd.window_handles:
+    wd.switch_to.window(handle)
+    if 'Bing' in wd.title:
+        break
+
+wd.close()  # 关闭当前打开的窗口
