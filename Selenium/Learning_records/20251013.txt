@@ -1,0 +1,37 @@
+SelectionBox选择框
+----------------------------
+1.Radio选择框 -->单选框
+# 根据name属性确定是否为同一组
+# value属性值
+print(ele.get_attribute('value'))
+# 点选方法：选中元素点击即可，根据value属性定位，若多个，则加上组别
+
+# 缺省选中：checked=checked，后续变更选中其他以后，该属性不会变，所以只能用来定位缺省选中的组件，不能用该属性来确定当前选择的组件
+# 定位当前选中的组件，通过“:checked”定位
+input[name=teacher]:checked
+
+---------------------------------------------------------------
+2.CheckBox选择框  -->多选框
+# 基础同Radio，点击选择的方法不同，因为多选框当再次点击时会取消
+# 选中的思路：首先把已选择的再点击一次进行取消，再选择需要选择的框
+
+---------------------------------------------------------------
+3.select选择框  -->下拉式单选、多选
+# 和上面的不同点在于，该内容有一个单独的select标签，选项在option标签里
+# 决定单选还是多选，如果有multiple属性则为多选
+# 缺省，有selected属性
+
+# 专门的类处理select
+from selenium.webdriver.support.select import Select
+select = Select(ele)
+# 属性和方法
+all_selected_options  # 所有的元素
+# 选中
+select.select_by_value('foo') # 根据value值选择
+select.select_by_index(0) # 根据次序选择
+select.select_by_visible_text('Bar') # 根据可见文本的值进行选择，一般和value值相同
+# 去选（不需要判断当前是否是选中的）
+select.deselect_by_value('foo')
+select.deselect_by_index(0)
+select.deselect_by_visible_text('Bar')
+select.deselect_all # 去选所有
